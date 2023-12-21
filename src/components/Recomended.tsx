@@ -10,6 +10,8 @@ const Recomended = () => {
     MovieType[] | SeriesType[]
   >();
   const [isLoading, setIsLoading] = useState(true);
+  console.log(isLoading);
+
   useEffect(() => {
     if (active == "movies") {
       const fetchMoviesItem = async () => {
