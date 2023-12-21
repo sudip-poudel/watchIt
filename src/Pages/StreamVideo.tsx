@@ -61,7 +61,9 @@ const StreamVideo = () => {
                 <p>{movieDetails?.runtime} min</p>
               </div>
             </div>
-            <p className="text-secondary my-2">{movieDetails?.overview}</p>
+            <p className="text-secondary my-2 hidden sm:block">
+              {movieDetails?.overview}
+            </p>
             <div className="flex flex-row text-secondary">
               <span className="text-white w-32 ">Genres: </span>
               <div className="flex flex-row gap-3">
@@ -106,10 +108,10 @@ const StreamVideo = () => {
             </div>
             <div className="flex flex-row">
               <span className="text-white w-32">Cast: </span>
-              <p className="text-secondary flex flex-row gap-3">
+              <p className="text-secondary flex flex-row ">
                 {movieCast?.cast
                   .filter((cast) => cast.known_for_department == "Acting")
-                  .map((cast, i) => i < 4 && <p key={i}>{cast.name}</p>)}
+                  .map((cast, i) => i < 3 && <p key={i}>{cast.name}</p>)}
               </p>
             </div>
             <div className="flex flex-row">

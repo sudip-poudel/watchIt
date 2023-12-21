@@ -80,6 +80,8 @@ export type EpisodeType = {
   season_number: number;
   show_id: number;
   still_path: string | null;
+  crew?: CrewMemberType[];
+  guest_stars?: ActorType[];
 };
 
 export type NetworkType = {
@@ -89,8 +91,10 @@ export type NetworkType = {
   origin_country: string;
 };
 export type SeasonType = {
+  _id?: string;
   air_date: string | null;
-  episode_count: number;
+  episode_count?: number;
+  episodes?: EpisodeType[];
   id: number;
   name: string;
   overview: string;
@@ -219,4 +223,50 @@ export type SearchedVideoType = {
   vote_average: number;
   vote_count: number;
   origin_country: string[];
+};
+
+export type SeriesCreditsType = {
+  cast: SeriesCastMemberType[];
+  crew: SeriesCrewMemberType[];
+  id: number;
+};
+
+type SeriesCastMemberType = {
+  adult: boolean;
+  gender: number; // Use enum for specific genders if needed
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+  roles: EpisodeRoleType[];
+  total_episode_count: number;
+  order: number;
+};
+
+type SeriesCrewMemberType = {
+  adult: boolean;
+  gender: number; // Use enum for specific genders if needed
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+  jobs: EpisodeJobType[];
+  department: string;
+  total_episode_count: number;
+};
+
+type EpisodeRoleType = {
+  credit_id: string;
+  character: string;
+  episode_count: number;
+};
+
+type EpisodeJobType = {
+  credit_id: string;
+  job: string;
+  episode_count: number;
 };

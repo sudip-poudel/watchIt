@@ -42,7 +42,17 @@ body {
     -webkit-box-shadow: -3px -38px 49px 12px rgba(41, 216, 214, 0.75) inset;
     -moz-box-shadow: -3px -38px 49px 12px rgba(41, 216, 214, 0.75) inset;
   }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
 }
+
 @layer base {
   :root {
     --background: 0 0% 100%;

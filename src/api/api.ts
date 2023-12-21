@@ -3,6 +3,8 @@ import {
   MovieCastType,
   MovieDetailsType,
   SearchResultsType,
+  SeasonType,
+  SeriesCreditsType,
   SeriesDetailsType,
 } from "@/Types/type";
 import axios from "axios";
@@ -57,7 +59,7 @@ const fetchMovieGenres = async (genreId: number[]) => {
 };
 
 const fetchMovieDetails = async (movieId: number) => {
-  const options = getOptions(`/movie/${movieId}?language=en-US`);
+  const options = getOptions(`/movie/${movieId}`);
   try {
     const result = await axios.request(options);
     const movieDetail: MovieDetailsType = result.data;
@@ -73,9 +75,10 @@ const fetchSeriesDetails = async (seriesId: number) => {
   const options = getOptions(`/tv/${seriesId}?language=en-US`);
   try {
     const result = await axios.request(options);
-    const movieDetail: SeriesDetailsType = result.data;
+    const seriesDetail: SeriesDetailsType = result.data;
+    console.log(seriesDetail);
 
-    return movieDetail;
+    return seriesDetail;
   } catch (error) {
     throw new Error();
   }
@@ -86,6 +89,21 @@ const fetchMovieCast = async (movieId: number) => {
   try {
     const result = await axios.request(options);
     const castData: MovieCastType = result.data;
+    return castData;
+  } catch (error) {
+    throw new Error();
+  }
+};
+const fetchSeriesCast = async (seriesId: number) => {
+  console.log(seriesId);
+
+  const options = getOptions(
+    `/tv/${seriesId}/aggregate_credits?language=en-US`
+  );
+  try {
+    const result = await axios.request(options);
+    const castData: SeriesCreditsType = result.data;
+    console.log(castData);
     return castData;
   } catch (error) {
     throw new Error();
@@ -103,6 +121,15 @@ const fetchSearchedVideos = async (query) => {
   return result;
 };
 
+const fetchSeasonDetails = async (series_id: string, season_number: string) => {
+  const options = getOptions(
+    `/tv/${series_id}/season/${season_number}?language=en-US`
+  );
+  const response = await axios.request(options);
+  const result: SeasonType = response.data;
+  return result;
+};
+
 export {
   fetchMovies,
   fetchMovieGenres,
@@ -111,4 +138,6 @@ export {
   fetchSeriesDetails,
   fetchMovieCast,
   fetchSearchedVideos,
+  fetchSeriesCast,
+  fetchSeasonDetails,
 };

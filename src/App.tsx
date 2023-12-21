@@ -5,6 +5,7 @@ import LandingPage from "./Pages/LandingPage";
 import StreamVideo from "./Pages/StreamVideo";
 import RecentlyAdded from "./Pages/RecentlyAdded";
 import SearchResults from "./Pages/SearchResults";
+import StreamSeries from "./Pages/StreamSeries";
 function App() {
   const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ function App() {
     {
       path: "/movie/:name",
       element: <StreamVideo />,
+    },
+    {
+      path: "/tv/:seriesId/:ssep",
+      element: <StreamSeries />,
     },
     {
       path: "/recentlyadded",

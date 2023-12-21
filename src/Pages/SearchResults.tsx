@@ -1,5 +1,6 @@
 import { SearchResultsType, SearchedVideoType } from "@/Types/type";
 import { fetchSearchedVideos } from "@/api/api";
+import Footer from "@/shared/Footer";
 import Navbar from "@/shared/Navbar";
 import VideoCard from "@/shared/VideoCard";
 import { useEffect, useState } from "react";
@@ -12,24 +13,20 @@ const SearchResults = () => {
     const fetchItems = async () => {
       const searchedVideos = await fetchSearchedVideos(query);
       setSearchResults(searchedVideos);
-      console.log(searchResults);
     };
     fetchItems();
   }, [query]);
-  console.log(
-    searchResults?.results.filter((video) => video.media_type === "movie")
-  );
+  console.log(searchResults?.results);
 
   return (
     <>
       <Navbar />
       <div className="flex flex-wrap">
-        {searchResults?.results
-          .filter((video) => video.media_type === "movie")
-          .map((video: SearchedVideoType, i: number) => (
-            <VideoCard movie={video} key={i} />
-          ))}
+        {searchResults?.results.map((video: SearchedVideoType, i: number) => (
+          <VideoCard movie={video} key={i} />
+        ))}
       </div>
+      {/* <Footer /> */}
     </>
   );
 };

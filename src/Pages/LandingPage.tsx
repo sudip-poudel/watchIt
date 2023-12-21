@@ -105,6 +105,10 @@ const LandingPage = () => {
               cinema as you embark on a cinematic journey like no other. Welcome
               to WatchIT, where movies come to life.
             </p>
+            <p className="text-white text-center">
+              DCMA Notice: This site does not store any files on our server, we
+              only linked to the media which is hosted on 3rd party services.
+            </p>
           </div>
         </div>
       </div>

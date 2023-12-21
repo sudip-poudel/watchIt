@@ -6,7 +6,7 @@ import {
   SearchedVideoType,
 } from "@/Types/type";
 import { fetchMovieDetails, fetchSeriesDetails } from "@/api/api";
-import { PlayCircle } from "lucide-react";
+import { Loader, PlayCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -15,92 +15,108 @@ const VideoCard = ({
 }: {
   movie: MovieType | SeriesType | SearchedVideoType;
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [videoDetails, setVideoDetails] = useState<
     SeriesDetailsType | MovieDetailsType
   >();
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
-      console.log(movie);
-
       if ("first_air_date" in movie) {
+        setIsLoading(true);
         const seriesDetails = await fetchSeriesDetails(movie.id);
         setVideoDetails(seriesDetails);
+        setIsLoading(false);
       } else {
-        console.log(movie);
+        setIsLoading(true);
 
         const movieDetails = await fetchMovieDetails(movie.id);
         setVideoDetails(movieDetails);
+        setIsLoading(false);
       }
     };
     fetchData();
   }, [movie]);
 
   if (videoDetails && "first_air_date" in videoDetails) {
-    return (
-      <div
-        onClick={() => {
-          navigate("/tv/");
-        }}
-        className="w-36 h-60 mt-4 ml-4 mb-8 text-secondary group"
-      >
-        <div className="relative">
-          <img
-            className="rounded-xl"
-            src={`${import.meta.env.VITE_TMDB_IMAGE_URL}/original${
-              movie.poster_path
-            }`}
-            alt="poster"
-          />
-          <div className="opacity-0 absolute top-0 w-full h-full  rounded-xl  hover:opacity-100 flex flex-row items-center justify-center card-shadow transition-all duration-500">
-            <PlayCircle color="white" />
+    return isLoading ? (
+      <p className="w-36 h-60 mt-4 ml-4 mb-8 flex flex-row justify-center items-center">
+        <Loader />
+      </p>
+    ) : (
+      videoDetails && (
+        <div
+          onClick={() => {
+            navigate(`/tv/${videoDetails.id}/1-1`);
+          }}
+          className="w-36 h-60 mt-4 ml-4 mb-8 text-secondary group"
+        >
+          <div className="relative">
+            <img
+              className="rounded-xl"
+              src={`${import.meta.env.VITE_TMDB_IMAGE_URL}/original${
+                movie.poster_path
+              }`}
+              alt="poster"
+            />
+            <div className="opacity-0 absolute top-0 w-full h-full  rounded-xl  hover:opacity-100 flex flex-row items-center justify-center card-shadow transition-all duration-500">
+              <PlayCircle color="white" />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-row justify-around items-center font-medium text-[11px] mt-2">
-          <p>{videoDetails.last_air_date.split("-")[0]}</p>
-          <p className="border group-hover:text-primary border-secondary px-1 py-0 rounded-xl">
-            SS {videoDetails.seasons.length}
+          <div className="flex flex-row justify-around items-center font-medium text-[11px] mt-2">
+            <p>{videoDetails?.first_air_date.split("-")[0]}</p>
+            <p className="border group-hover:text-primary border-secondary px-1 py-0 rounded-xl">
+              SS {videoDetails.seasons.length}
+            </p>
+            <p>
+              ep{" "}
+              {videoDetails.last_episode_to_air &&
+                videoDetails.last_episode_to_air.episode_number}
+            </p>
+          </div>
+          <p className="text-start  group-hover:text-primary cursor-pointer">
+            {videoDetails.name}
           </p>
-          <p>ep {videoDetails.last_episode_to_air.episode_number}</p>
         </div>
-        <p className="text-start  group-hover:text-primary cursor-pointer">
-          {videoDetails.name}
-        </p>
-      </div>
+      )
     );
   } else {
-    return videoDetails ? (
-      <div
-        onClick={() => {
-          navigate(`/movie/${videoDetails.id}`);
-        }}
-        className="w-36 h-60 mt-4 ml-4 mb-8 text-secondary group"
-      >
-        <div className="relative">
-          <img
-            className="rounded-xl"
-            src={`${import.meta.env.VITE_TMDB_IMAGE_URL}/original${
-              videoDetails.poster_path
-            }`}
-            alt="poster"
-          />
-          <div className="opacity-0 absolute top-0 w-full h-full  rounded-xl  hover:opacity-100 flex flex-row items-center justify-center card-shadow transition-all duration-500">
-            <PlayCircle color="white" />
-          </div>
-        </div>
-        <div className="flex flex-row justify-around items-center text-[11px] mt-2">
-          <p>{videoDetails.release_date.split("-")[0]}</p>
-          <p className="border border-secondary group-hover:text-primary px-1 py-0 rounded-xl">
-            MOV
-          </p>
-          <p>{videoDetails.runtime} min</p>
-        </div>
-        <p className="text-start text-sm px-1 group-hover:text-primary cursor-pointer">
-          {videoDetails.title}
-        </p>
-      </div>
+    return isLoading ? (
+      <p className="w-36 h-60 mt-4 ml-4 mb-8 flex flex-row justify-center items-center text-black">
+        <Loader />
+      </p>
     ) : (
-      <p>Loading..</p>
+      videoDetails && (
+        <div
+          onClick={() => {
+            navigate(`/movie/${videoDetails.id}`);
+          }}
+          className="w-36 h-60 mt-4 ml-4 mb-8 text-secondary group"
+        >
+          <div className="relative">
+            <img
+              className="rounded-xl"
+              src={`${import.meta.env.VITE_TMDB_IMAGE_URL}/original${
+                videoDetails.poster_path
+              }`}
+              alt="poster"
+            />
+            <div className="opacity-0 absolute top-0 w-full h-full  rounded-xl  hover:opacity-100 flex flex-row items-center justify-center card-shadow transition-all duration-500">
+              <PlayCircle color="white" />
+            </div>
+          </div>
+          <div className="flex flex-row justify-around items-center text-[11px] mt-2">
+            <p>{videoDetails?.release_date.split("-")[0]}</p>
+            <p className="border border-secondary group-hover:text-primary px-1 py-0 rounded-xl">
+              MOV
+            </p>
+            <p>{videoDetails.runtime} min</p>
+          </div>
+          <p className="text-start text-sm px-1 group-hover:text-primary cursor-pointer">
+            {videoDetails.title}
+          </p>
+        </div>
+      )
     );
   }
 };
