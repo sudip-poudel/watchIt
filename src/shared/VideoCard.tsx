@@ -74,7 +74,7 @@ const VideoCard = ({
                 videoDetails.last_episode_to_air.episode_number}
             </p>
           </div>
-          <p className="text-start  group-hover:text-primary cursor-pointer">
+          <p className="text-start text-ellipsis overflow-hidden whitespace-nowrap group-hover:text-primary cursor-pointer">
             {videoDetails.name}
           </p>
         </div>
@@ -112,7 +112,7 @@ const VideoCard = ({
             </p>
             <p>{videoDetails.runtime} min</p>
           </div>
-          <p className="text-start text-sm px-1 group-hover:text-primary cursor-pointer">
+          <p className="text-start text-ellipsis overflow-hidden whitespace-nowrap text-sm px-1 group-hover:text-primary cursor-pointer">
             {videoDetails.title}
           </p>
         </div>

@@ -6,6 +6,7 @@ import {
   SeasonType,
   SeriesCreditsType,
   SeriesDetailsType,
+  TrendingResultType,
 } from "@/Types/type";
 import axios from "axios";
 
@@ -110,9 +111,9 @@ const fetchSeriesCast = async (seriesId: number) => {
   }
 };
 
-const fetchSearchedVideos = async (query) => {
+const fetchSearchedVideos = async (query: string, pageNo: string) => {
   const options = getOptions(
-    `/search/multi?query=${query}&include_adult=true&page=1`
+    `/search/multi?query=${query}&include_adult=true&page=${pageNo}`
   );
 
   const data = await axios.request(options);
@@ -130,6 +131,13 @@ const fetchSeasonDetails = async (series_id: string, season_number: string) => {
   return result;
 };
 
+const fetchTrendingData = async (time: string) => {
+  const options = getOptions(`/trending/all/${time}?language=en-US`);
+  const data = await axios.request(options);
+  const result: TrendingResultType = data.data;
+  return result.results;
+};
+
 export {
   fetchMovies,
   fetchMovieGenres,
@@ -140,4 +148,5 @@ export {
   fetchSearchedVideos,
   fetchSeriesCast,
   fetchSeasonDetails,
+  fetchTrendingData,
 };

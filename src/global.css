@@ -8,6 +8,7 @@ body {
 }
 * {
   font-family: "Roboto", sans-serif;
+  text-overflow: ellipsis;
 }
 @layer utilities {
   .navbar-bg {

@@ -270,3 +270,29 @@ type EpisodeJobType = {
   job: string;
   episode_count: number;
 };
+
+export type TrendingDataType = {
+  adult: boolean;
+  backdrop_path: string | null;
+  id: number;
+  title: string;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  poster_path: string | null;
+  media_type: "movie" | "tv";
+  genre_ids: number[];
+  popularity: number;
+  release_date: string | null;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+  // Additional properties for TV shows:
+  name?: string;
+  first_air_date?: string;
+  origin_country?: string[];
+};
+export type TrendingResultType = {
+  page: number;
+  results: TrendingDataType[];
+};

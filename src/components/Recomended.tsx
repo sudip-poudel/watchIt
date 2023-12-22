@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { MovieType, SeriesType } from "@/Types/type";
 import { fetchMovies, fetchSeries } from "@/api/api";
 import VideoCard from "@/shared/VideoCard";
+import Sidebar from "@/shared/Sidebar";
 
 const Recomended = () => {
   const [active, setActive] = useState<string>("movies");
@@ -41,8 +42,8 @@ const Recomended = () => {
   };
   return (
     <div className="absolute top-[80%] w-full">
-      <div className="flex flex-con lg:flex-row">
-        <div className="flex flex-col">
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex flex-col lg:w-3/4 ">
           <div className="flex flex-col gap-3 items-center justify-center lg:flex-row lg:justify-start">
             <h2 className="text-white text-2xl font-bold pl-3 pt-2">
               Recommended
@@ -72,7 +73,7 @@ const Recomended = () => {
               </Button>
             </div>
           </div>
-          <div className="flex justify-center flex-wrap w-full lg:w-3/4 lg:justify-start flex-row gap-2">
+          <div className="flex justify-center flex-wrap w-full  lg:justify-start flex-row gap-2">
             {availableMovies?.map(
               (movie: MovieType | SeriesType, i: number) => (
                 <VideoCard movie={movie} key={i} />
@@ -80,8 +81,8 @@ const Recomended = () => {
             )}
           </div>
         </div>
-        <div className="felx flex-col items-center justify-center">
-          <h2 className="text-2xl font-bold text-white">Trending</h2>
+        <div className="w-full mt-3 lg:w-1/4">
+          <Sidebar variant="Trending" />
         </div>
       </div>
     </div>
