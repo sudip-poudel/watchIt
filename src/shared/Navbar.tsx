@@ -8,10 +8,13 @@ const Navbar = () => {
     <div className="navbar-bg  p-4">
       <nav className="flex justify-between items-center">
         <div className="flex items-center">
-          <Button variant={"ghost"} className="hover:bg-transparent">
-            <Menu color="white" className="w-7 h-7" />
+          <Button
+            variant={"ghost"}
+            className="hover:bg-primary w-12 h-12 text-white hover:text-black  rounded-full"
+          >
+            <Menu />
           </Button>
-          <Link to={"/home"} className="w-10 h-10">
+          <Link to={"/home"} className="w-10 h-10 ml-3">
             <img
               src="/images/logo.jpeg"
               alt="logo"

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { PlaySquare } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 type SidebarProps = {
   variant: string;
@@ -69,7 +70,12 @@ const Sidebar = ({ variant }: SidebarProps) => {
                 className="group "
                 key={i}
               >
-                <div className="flex flex-row justify-start items-center h-24 rounded-2xl bg-black pl-2 group-hover:bg-primary transition-all duration-500">
+                <motion.div
+                  initial={{ opacity: 0, x: -500 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 * i, duration: 0.6 }}
+                  className="flex flex-row justify-start items-center h-24 rounded-2xl bg-black pl-2 group-hover:bg-primary transition-all duration-500"
+                >
                   <img
                     src={`${import.meta.env.VITE_TMDB_IMAGE_URL}/original${
                       video.poster_path
@@ -100,7 +106,7 @@ const Sidebar = ({ variant }: SidebarProps) => {
                       {video.media_type === "movie" ? video.title : video.name}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               </Link>
             )
           );

@@ -6,6 +6,7 @@ import {
   SearchedVideoType,
 } from "@/Types/type";
 import { fetchMovieDetails, fetchSeriesDetails } from "@/api/api";
+import { motion } from "framer-motion";
 import { Loader, PlayCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -45,7 +46,10 @@ const VideoCard = ({
       </p>
     ) : (
       videoDetails && (
-        <div
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4, duration: 2 }}
           onClick={() => {
             navigate(`/tv/${videoDetails.id}/1-1`);
           }}
@@ -77,7 +81,7 @@ const VideoCard = ({
           <p className="text-start text-ellipsis overflow-hidden whitespace-nowrap group-hover:text-primary cursor-pointer">
             {videoDetails.name}
           </p>
-        </div>
+        </motion.div>
       )
     );
   } else {
@@ -87,7 +91,10 @@ const VideoCard = ({
       </p>
     ) : (
       videoDetails && (
-        <div
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.4, duration: 2 }}
           onClick={() => {
             navigate(`/movie/${videoDetails.id}`);
           }}
@@ -115,7 +122,7 @@ const VideoCard = ({
           <p className="text-start text-ellipsis overflow-hidden whitespace-nowrap text-sm px-1 group-hover:text-primary cursor-pointer">
             {videoDetails.title}
           </p>
-        </div>
+        </motion.div>
       )
     );
   }
