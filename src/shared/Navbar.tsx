@@ -2,14 +2,19 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 import SearchBox from "./SearchBox";
+import { useState } from "react";
+import MenuBar from "@/components/modals/MenuBar";
 
 const Navbar = () => {
+  const [showMenu, setShowMenu] = useState(false);
   return (
     <div className="navbar-bg  p-4">
+      {showMenu && <MenuBar />}
       <nav className="flex justify-between items-center">
         <div className="flex items-center">
           <Button
             variant={"ghost"}
+            onClick={() => setShowMenu((showMenu) => !showMenu)}
             className="hover:bg-primary w-12 h-12 text-white hover:text-black  rounded-full"
           >
             <Menu />

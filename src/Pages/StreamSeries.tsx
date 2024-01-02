@@ -93,7 +93,10 @@ const StreamSeries = () => {
             </h1>
             <div className="">
               <div className="flex flex-row  gap-2 text-white">
-                <p>{seriesDetails?.last_air_date.split("-")[0]}</p>
+                <p>
+                  {seriesDetails?.last_air_date &&
+                    seriesDetails?.last_air_date.split("-")[0]}
+                </p>
                 <p className="flex items-center gap-1 ">
                   <Star width={18} height={18} />
                   {seriesDetails && seriesDetails.vote_average.toFixed(1)}
@@ -101,7 +104,7 @@ const StreamSeries = () => {
                 <p>{seriesDetails?.seasons.length} min</p>
               </div>
             </div>
-            <p className="text-secondary my-2 hidden w-3/4 sm:block">
+            <p className="text-secondary my-2 hidden max-w-[50%]  sm:block">
               {seriesDetails?.overview}
             </p>
             <div className="flex flex-row text-secondary">

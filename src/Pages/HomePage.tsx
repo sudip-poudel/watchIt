@@ -3,6 +3,7 @@ import { fetchMovies } from "@/api/api";
 import MovieCarousel from "@/components/MovieCarousel";
 import Recomended from "@/components/Recomended";
 // import Footer from "@/shared/Footer";
+// import Footer from "@/shared/Footer";
 import Navbar from "@/shared/Navbar";
 import { useEffect, useState } from "react";
 
@@ -19,12 +20,13 @@ const HomePage = () => {
 
   return (
     <div className="">
-      <div className="">
+      <div className="relative min-h-screen  z-0">
         <Navbar />
         <MovieCarousel movies={movies} />
         <Recomended />
+        {/* <Footer /> */}
       </div>
-      <div>{/* <Footer /> */}</div>
+      <div className=""></div>
     </div>
   );
 };

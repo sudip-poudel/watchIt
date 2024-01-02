@@ -62,7 +62,7 @@ const MovieCarousel = ({ movies }: { movies: MovieType[] | undefined }) => {
   console.log(movies);
 
   return (
-    <div>
+    <div className="">
       <Swiper
         className="w-full absolute top-0 left-0 -z-10 h-4/5"
         autoplay={{
