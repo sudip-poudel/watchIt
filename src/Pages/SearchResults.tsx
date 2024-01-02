@@ -1,6 +1,6 @@
 import { SearchResultsType, SearchedVideoType } from "@/Types/type";
 import { fetchSearchedVideos } from "@/api/api";
-// import Footer from "@/shared/Footer";
+import Footer from "@/shared/Footer";
 import Navbar from "@/shared/Navbar";
 import VideoCard from "@/shared/VideoCard";
 import { useEffect, useState } from "react";
@@ -62,7 +62,7 @@ const SearchResults = () => {
           previousLinkClassName="text-2xl"
         />
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

@@ -59,42 +59,38 @@ const MovieDetails = ({ movie }: { movie: MovieType }) => {
 };
 
 const MovieCarousel = ({ movies }: { movies: MovieType[] | undefined }) => {
-  console.log(movies);
-
   return (
-    <div className="">
-      <Swiper
-        className="w-full absolute top-0 left-0 -z-10 h-4/5"
-        autoplay={{
-          delay: 4000,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: false,
-        }}
-        modules={[Navigation, Pagination, Scrollbar, Autoplay]}
-        pagination={{
-          clickable: true,
-        }}
-      >
-        {movies?.map((movie, i) =>
-          movies && i < 9 ? (
-            <SwiperSlide key={i}>
-              <img
-                src={`${import.meta.env.VITE_TMDB_IMAGE_URL}/w1280${
-                  movie.backdrop_path
-                }`}
-                alt="logo"
-                className="w-full object-cover h-full relative"
-              />
-              <div className=" absolute top-0 left-0 w-full h-full bg-gradient">
-                <MovieDetails movie={movie} />
-              </div>
-            </SwiperSlide>
-          ) : (
-            ""
-          )
-        )}
-      </Swiper>
-    </div>
+    <Swiper
+      className="w-full absolute top-0 left-0 -z-10 h-full"
+      autoplay={{
+        delay: 4000,
+        disableOnInteraction: false,
+        pauseOnMouseEnter: false,
+      }}
+      modules={[Navigation, Pagination, Scrollbar, Autoplay]}
+      pagination={{
+        clickable: true,
+      }}
+    >
+      {movies?.map((movie, i) =>
+        movies && i < 9 ? (
+          <SwiperSlide key={i}>
+            <img
+              src={`${import.meta.env.VITE_TMDB_IMAGE_URL}/w1280${
+                movie.backdrop_path
+              }`}
+              alt="logo"
+              className="w-full object-cover h-full relative"
+            />
+            <div className=" absolute top-0 left-0 w-full h-full bg-gradient">
+              <MovieDetails movie={movie} />
+            </div>
+          </SwiperSlide>
+        ) : (
+          ""
+        )
+      )}
+    </Swiper>
   );
 };
 

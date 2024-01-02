@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Footer from "@/shared/Footer";
 
 type ParamsType = {
   seriesId?: string;
@@ -27,7 +28,6 @@ type SeasonEpType = {
 
 const StreamSeries = () => {
   const location = useLocation();
-  console.log(location);
 
   const [seriesDetails, setSeriesDetails] = useState<SeriesDetailsType>();
   const [seriesCast, setSeriesCast] = useState<SeriesCreditsType>();
@@ -50,9 +50,6 @@ const StreamSeries = () => {
     };
     fetchseriesData();
   }, [seriesId, ssep]);
-  // console.log(
-  //   seriesCast?.cast.filter((cast) => cast.known_for_department == "Acting")
-  // );
 
   useEffect(() => {
     const handleSeasonChange = async () => {
@@ -72,22 +69,24 @@ const StreamSeries = () => {
       <div className="flex flex-row justify-center">
         <iframe
           width={200}
-          src={`https://vidsrc.to/embed/tv/${seriesId}/${seasonep?.seasonNo}/${seasonep?.epNo}`}
+          src={`${import.meta.env.VITE_HOST_URL}/tv/${seriesId}/${
+            seasonep?.seasonNo
+          }/${seasonep?.epNo}`}
           className="aspect-video w-3/4  bg-black"
           allowFullScreen
         >
           series
         </iframe>
       </div>
-      <div className="flex flex-col mt-6 lg:flex-row h-max">
-        <div className="flex gap-6 flex-row  ml-4 w-full md:w-3/4 mb-8 relative md:static">
+      <div className="flex flex-col mt-6 lg:flex-row ">
+        <div className="flex gap-6 flex-row overflow-x-hidden lg:ml-4 w-full lg:w-3/4 mb-8 relative md:static">
           <img
             src={`${import.meta.env.VITE_TMDB_IMAGE_URL}/original/${
               seriesDetails?.poster_path
             }`}
             className="w-full h-[32rem] md:h-auto object-cover md:w-64 rounded-xl  md:static"
           />
-          <div className="flex flex-col justify-center gap-1 absolute md:static bg-gradient h-full md:bg-none">
+          <div className="flex flex-col justify-center pl-2 gap-1 absolute md:static bg-gradient h-full md:w-[70%] md:bg-none">
             <h1 className="text-white font-bold text-3xl">
               {seriesDetails?.name}
             </h1>
@@ -104,7 +103,7 @@ const StreamSeries = () => {
                 <p>{seriesDetails?.seasons.length} min</p>
               </div>
             </div>
-            <p className="text-secondary my-2 hidden max-w-[50%]  sm:block">
+            <p className="text-secondary my-2 hidden sm:block">
               {seriesDetails?.overview}
             </p>
             <div className="flex flex-row text-secondary">
@@ -170,14 +169,13 @@ const StreamSeries = () => {
             </div>
           </div>
         </div>
-        <div className="w-full md:w-1/4 flex flex-col justify-center bg-black px-4 py-2 mr-2 rounded-lg">
+        <div className=" flex flex-col justify-center bg-black px-4 py-2 mr-2 rounded-lg">
           {seasonep?.seasonNo && (
             <Select
               onValueChange={(e) => {
                 const ssep = { ...seasonep, seasonNo: +e };
                 setSeasonEp(ssep);
               }}
-              // className="text-white text-2xl font-bold flex justify-center items-center flex-row gap-2"
               defaultValue={`${seasonep?.seasonNo && seasonep.seasonNo}`}
             >
               <SelectTrigger className="w-[180px] bg-transparent text-white">
@@ -222,6 +220,7 @@ const StreamSeries = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

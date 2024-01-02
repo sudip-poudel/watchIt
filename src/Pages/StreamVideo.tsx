@@ -1,5 +1,6 @@
 import { MovieCastType, MovieDetailsType } from "@/Types/type";
 import { fetchMovieCast, fetchMovieDetails } from "@/api/api";
+import Footer from "@/shared/Footer";
 import Navbar from "@/shared/Navbar";
 import { PlaySquare, Star } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -22,9 +23,6 @@ const StreamVideo = () => {
     };
     fetchMovieData();
   }, [movieId]);
-  console.log(
-    movieCast?.cast.filter((cast) => cast.known_for_department == "Acting")
-  );
 
   return (
     <div>
@@ -32,7 +30,7 @@ const StreamVideo = () => {
       <div className="flex flex-row justify-center">
         <iframe
           width={200}
-          src={`https://vidsrc.to/embed/movie/${movieId}`}
+          src={`${import.meta.env.VITE_HOST_URL}/movie/${movieId}`}
           className="aspect-video w-3/4  bg-black"
           allowFullScreen
         >
@@ -40,14 +38,14 @@ const StreamVideo = () => {
         </iframe>
       </div>
       <div className="flex flex-col mt-6 lg:flex-row">
-        <div className="flex gap-6 flex-row  ml-4 w-full md:w-3/4 mb-8 relative md:static">
+        <div className="flex gap-6 flex-row lg:ml-4 w-full lg:w-3/4 mb-8 relative md:static">
           <img
             src={`${import.meta.env.VITE_TMDB_IMAGE_URL}/original/${
               movieDetails?.poster_path
             }`}
             className="w-full h-[32rem] md:h-auto object-cover md:w-64 rounded-xl  md:static"
           />
-          <div className="flex flex-col justify-center gap-1 absolute md:static bg-gradient h-full md:bg-none">
+          <div className="flex flex-col justify-center  pl-2 gap-1 absolute md:static bg-gradient h-full w-full   md:bg-none">
             <h1 className="text-white font-bold text-3xl">
               {movieDetails?.title}
             </h1>
@@ -68,7 +66,10 @@ const StreamVideo = () => {
               <span className="text-white w-32 ">Genres: </span>
               <div className="flex flex-row gap-3">
                 {movieDetails?.genres.map((genre, i) => (
-                  <p key={i}>{genre.name},</p>
+                  <p key={i}>
+                    {genre.name}
+                    {i < movieDetails?.genres.length - 1 && ","}
+                  </p>
                 ))}
               </div>
             </div>
@@ -100,19 +101,32 @@ const StreamVideo = () => {
             </div>
             <div className="flex flex-row">
               <span className="text-white w-32">Porduction: </span>
-              <p className="text-secondary">
+              <div className="text-secondary flex flex-row gap-1">
                 {movieDetails?.production_companies.map(
-                  (company) => company.name
+                  (company, i) =>
+                    i < 3 && (
+                      <p key={i}>
+                        {company.name}
+                        {i < 2 && ","}
+                      </p>
+                    )
                 )}
-              </p>
+              </div>
             </div>
             <div className="flex flex-row">
               <span className="text-white w-32">Cast: </span>
-              <p className="text-secondary flex flex-row ">
+              <div className="text-secondary flex flex-row gap-1">
                 {movieCast?.cast
                   .filter((cast) => cast.known_for_department == "Acting")
-                  .map((cast, i) => i < 3 && <p key={i}>{cast.name}</p>)}
-              </p>
+                  .map(
+                    (cast, i) =>
+                      i < 3 && (
+                        <p key={i}>
+                          {cast.name} {i < 2 && ","}
+                        </p>
+                      )
+                  )}
+              </div>
             </div>
             <div className="flex flex-row">
               <span className="text-white w-32">Budget: </span>
@@ -126,6 +140,7 @@ const StreamVideo = () => {
           </h2>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

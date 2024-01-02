@@ -14,7 +14,7 @@ const MenuBar = () => {
 
   return (
     <div
-      className="relative w-screen z-10 bg-black "
+      className="relative w-full z-10 bg-black "
       onClick={() => {
         console.log("dsadas");
       }}

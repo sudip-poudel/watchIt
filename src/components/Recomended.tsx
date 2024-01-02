@@ -33,7 +33,6 @@ const Recomended = () => {
       fetchMoviesItem();
     }
   }, [active]);
-  //   const [availableSeries, setAvailableSeries] = useState<>();
   const handelMoviesClick = () => {
     setActive("movies");
   };
@@ -41,7 +40,7 @@ const Recomended = () => {
     setActive("series");
   };
   return (
-    <div className="absolute top-[80%] w-full">
+    <div className="w-full">
       <div className="flex flex-col lg:flex-row">
         <div className="flex flex-col lg:w-3/4 ">
           <div className="flex flex-col gap-3 items-center justify-center lg:flex-row lg:justify-start">
