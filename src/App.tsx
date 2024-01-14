@@ -6,6 +6,7 @@ import StreamVideo from "./Pages/StreamVideo";
 import RecentlyAdded from "./Pages/RecentlyAdded";
 import SearchResults from "./Pages/SearchResults";
 import StreamSeries from "./Pages/StreamSeries";
+import Filter from "./components/Filter";
 function App() {
   const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ function App() {
     {
       path: "/search/:query",
       element: <SearchResults />,
+    },
+    {
+      path: "/filter",
+      element: <Filter />,
     },
   ]);
   return <RouterProvider router={router} />;
