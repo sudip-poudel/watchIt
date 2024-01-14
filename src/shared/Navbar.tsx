@@ -27,7 +27,9 @@ const Navbar = () => {
             />
           </Link>
         </div>
-        <SearchBox isLandingPage={false} />
+          
+          <SearchBox  isLandingPage={false} />
+        
         <Button
           type="button"
           asChild
